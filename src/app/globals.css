@@ -1,0 +1,69 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1c2233;
+  --muted: #667085;
+  --border: #e4e7ef;
+  --brand: #d6336c;
+  --brand-soft: #fde8ef;
+  --ok: #12805c;
+  --mid: #b7791f;
+  --lo: #9aa1b1;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { margin: 0 0 4px; line-height: 1.25; }
+
+.site-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 24px; background: var(--card); border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 700; font-size: 18px; }
+.brand-mark { color: var(--brand); }
+.tag {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--brand); background: var(--brand-soft); padding: 2px 8px; border-radius: 999px;
+}
+.container { max-width: 880px; margin: 0 auto; padding: 24px 16px 48px; }
+.site-footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px; }
+
+.hero { margin-bottom: 16px; }
+.muted { color: var(--muted); margin: 0; }
+.small { font-size: 13px; margin-bottom: 12px; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.job-list, .match-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.job-link { display: block; }
+.job-card:hover { border-color: var(--brand); }
+.job-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.job-top h2 { font-size: 18px; }
+.salary { font-weight: 600; margin: 6px 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip { font-size: 12px; background: var(--bg); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+.pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.jp { background: #eef2ff; color: #3b4ab8; }
+.best { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+
+.back { display: inline-block; margin-bottom: 12px; color: var(--brand); font-weight: 600; }
+.job-head p { margin: 6px 0; }
+.section-title { margin: 24px 0 2px; font-size: 18px; }
+
+.match-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.match h3 { font-size: 16px; }
+.score { font-size: 22px; font-weight: 700; }
+.score.hi { color: var(--ok); }
+.score.mid { color: var(--mid); }
+.score.lo { color: var(--lo); }
+.bars { display: grid; gap: 4px; margin-top: 10px; }
+.bar-row { display: grid; grid-template-columns: 90px 1fr; align-items: center; font-size: 12px; color: var(--muted); }
+.bar { height: 6px; background: var(--bg); border-radius: 999px; overflow: hidden; }
+.bar > div { height: 100%; background: var(--brand); }
+.missing { margin: 8px 0 0; font-size: 12px; color: var(--mid); }
