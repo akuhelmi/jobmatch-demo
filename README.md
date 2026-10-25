@@ -27,3 +27,9 @@ npm run lint && npm run typecheck && npm test && npm run build
 - `src/data/`: seeded jobs and candidates
 - `src/app/`: the job list and the ranked-candidates page
 - `.github/workflows/ci.yml`: CI on every push/PR; production deploy on `main` after CI passes
+
+## Resetting the demo
+
+`scripts/reset-to-start.sh` puts `main`'s files back to the `demo-start` tag with one new commit
+(history is never rewritten). Push that commit and CI redeploys the start version.
+Until the Vercel secrets are set, the deploy job is skipped with a warning (CI still runs).
