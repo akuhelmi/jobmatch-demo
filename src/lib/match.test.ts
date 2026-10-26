@@ -1,16 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
   experienceScore,
+  filterByMinScore,
   formatSalary,
   jlptRank,
   languageScore,
   locationScore,
   matchCandidate,
+  MIN_SCORE_OPTIONS,
   rankCandidates,
   skillScore,
   WEIGHTS,
 } from "./match";
-import type { Candidate, Job } from "./types";
+import type { Candidate, Job, Match } from "./types";
 
 const job: Job = {
   id: "j1",
@@ -99,4 +101,41 @@ describe("matchCandidate / rankCandidates", () => {
 describe("formatSalary", () => {
   it("formats a range in MYR", () => expect(formatSalary(8000, 12000)).toBe("RM 8,000 – RM 12,000"));
   it("formats a single amount", () => expect(formatSalary(5000, 5000)).toBe("RM 5,000"));
+});
+
+describe("filterByMinScore", () => {
+  const withScore = (id: string, score: number): Match => ({
+    candidate: cand({ id, name: id }),
+    score,
+    breakdown: { skills: 1, experience: 1, language: 1, location: 1 },
+    missingSkills: [],
+  });
+  const ranked = [withScore("a", 92), withScore("b", 70), withScore("c", 69), withScore("d", 40)];
+  const ids = (ms: Match[]) => ms.map((m) => m.candidate.id);
+
+  it("offers the four ticket options", () => {
+    expect(MIN_SCORE_OPTIONS).toEqual([0, 50, 70, 85]);
+  });
+
+  it("keeps everyone at minimum 0", () => {
+    expect(filterByMinScore(ranked, 0)).toEqual({ shown: ranked, hidden: 0 });
+  });
+
+  it("keeps a score equal to the minimum and hides the ones below", () => {
+    const r = filterByMinScore(ranked, 70);
+    expect(ids(r.shown)).toEqual(["a", "b"]);
+    expect(r.hidden).toBe(2);
+  });
+
+  it("keeps the ranking order", () => {
+    expect(ids(filterByMinScore(ranked, 50).shown)).toEqual(["a", "b", "c"]);
+  });
+
+  it("can hide everyone", () => {
+    expect(filterByMinScore([withScore("c", 69)], 85)).toEqual({ shown: [], hidden: 1 });
+  });
+
+  it("handles an empty list", () => {
+    expect(filterByMinScore([], 85)).toEqual({ shown: [], hidden: 0 });
+  });
 });

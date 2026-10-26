@@ -69,6 +69,18 @@ export function rankCandidates(job: Job, candidates: Candidate[]): Match[] {
     );
 }
 
+/** The choices offered by the "Minimum score" filter on a job's candidates page. */
+export const MIN_SCORE_OPTIONS = [0, 50, 70, 85] as const;
+
+/**
+ * Splits ranked matches by a minimum score. A score equal to the minimum is kept.
+ * `shown` keeps the input order; `hidden` is how many fell below the minimum.
+ */
+export function filterByMinScore(matches: Match[], min: number): { shown: Match[]; hidden: number } {
+  const shown = matches.filter((m) => m.score >= min);
+  return { shown, hidden: matches.length - shown.length };
+}
+
 export function formatSalary(min: number, max: number): string {
   const f = (n: number) => `RM ${n.toLocaleString("en-MY")}`;
   return min === max ? f(min) : `${f(min)} – ${f(max)}`;
